@@ -2,6 +2,7 @@ import sqlite3
 
 from cabinet.layout.catalog import CabinetError
 from cabinet.layout.installation import initialize_layout_schema, local_transaction, open_layout_store
+from cabinet.partition.storage import initialize_partition_schema
 
 
 def open_kiosk_store(path) -> sqlite3.Connection:
@@ -68,3 +69,4 @@ def initialize_kiosk_store(path, cabinet_id: str) -> None:
                 evidence TEXT NOT NULL
             )
         ''')
+        initialize_partition_schema(connection, requests=False, actions=True)

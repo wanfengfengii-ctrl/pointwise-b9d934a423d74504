@@ -1,14 +1,17 @@
-"""Run this project's full unittest suite from the repository root."""
+"""Run this project's full unittest suite and the partition change sample."""
 import sys
 import unittest
 
 
 def main():
-    suite = unittest.defaultTestLoader.discover('tests', top_level_dir='.')
+    loader = unittest.defaultTestLoader
+    suite = unittest.TestSuite()
+    suite.addTests(loader.discover('tests', top_level_dir='.'))
+    suite.addTests(loader.loadTestsFromName('examples.partition_day'))
     if suite.countTestCases():
         result = unittest.TextTestRunner(verbosity=2).run(suite)
     else:
-        print('No tests discovered in tests/', file=sys.stderr)
+        print('No tests discovered in tests/ or examples/', file=sys.stderr)
         result = unittest.TestResult()
     for status, failed_cases in (
         ('FAIL', (test for test, _ in result.failures)),

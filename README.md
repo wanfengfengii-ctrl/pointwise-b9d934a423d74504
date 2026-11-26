@@ -13,6 +13,8 @@ python3 -B -m tests.test_day
 
 样例从 `examples/day.json` 读取柜型及作品，从 `run.json` 读取演示用验证材料。样例实际启动柜台与柜机，并在真实交取、乱序核回、重开和再派的断言通过后输出 `POINTWISE_SCENARIO`。原始套件也可以直接使用 `python3 -B -m unittest discover -s tests -t . -v`。
 
+换隔板样例 `python3 -B -m examples.partition_day` 按 `PARTITIONS.md` 的往返约定启动同一对柜台与柜机，演示合舱被未结原单拒绝、宽 6 作品在 M 交取以及拆回分格。`check_project.py` 同时运行原始全量回归与该换板样例，任一断言失败即以非零退出。运行清单的 `demo` 入口指向换板样例，`verify` 入口仍为 `check_project.py`。
+
 ## 启动服务
 
 在两个终端分别配置相同的场馆验证材料，使用不同的数据库文件。示例环境变量仅供本地演练。服务只绑定 `127.0.0.1`，启动后输出监听地址及端口。重新启动时给出原数据库路径、柜号及验证材料。柜机账绑定首次配置的柜号。
@@ -53,4 +55,4 @@ python3 -B -m cabinet.deposit.http --db gallery.sqlite --cabinet gallery --port 
 | N6、N7 | `tests/test_settlement.py` | 部分实收、乱序、串单拒绝、重复核回、历史查询及重开再派 |
 | 一日样例 | `tests/test_day.py` | 实际派舱、闭馆交取、先核取件、两端重开、原号查询和下一件作品交取 |
 
-柜台派舱使用 `cabinet/layout` 及 `cabinet/desk`，柜机现场动作使用 `cabinet/deposit` 和 `cabinet/pickup`，柜台核回与查单使用 `cabinet/settle`。
+柜台派舱使用 `cabinet/layout` 及 `cabinet/desk`，柜机现场动作使用 `cabinet/deposit` 和 `cabinet/pickup`，柜台核回与查单使用 `cabinet/settle`。换隔板的舱形账、授权与实装回执、两端 `POST/GET /partitions` 流程使用 `cabinet/partition`；柜台经 `CABINET_PARTITION_PEERS` 环回地址向柜机核验实装回执，不读取对方数据库。

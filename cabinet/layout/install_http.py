@@ -52,7 +52,11 @@ class CabinetJsonHandler(BaseHTTPRequestHandler):
 
     def reply(self, action) -> None:
         try:
-            status, payload = 200, action()
+            outcome = action()
+            if isinstance(outcome, tuple):
+                status, payload = outcome
+            else:
+                status, payload = 200, outcome
         except CabinetError as error:
             status, payload = error.status, {'error': error.code}
         try:

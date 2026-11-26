@@ -1,6 +1,7 @@
 import sqlite3
 
 from cabinet.layout.installation import initialize_layout_schema, local_transaction, open_layout_store
+from cabinet.partition.storage import initialize_partition_schema
 
 
 def open_desk_store(path) -> sqlite3.Connection:
@@ -48,3 +49,4 @@ def initialize_desk_store(path) -> None:
                 pickup_id TEXT NOT NULL
             )
         ''')
+        initialize_partition_schema(connection, requests=True, actions=False)
