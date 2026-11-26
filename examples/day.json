@@ -1,0 +1,15 @@
+{
+  "installation": {
+    "cabinet_id": "gallery",
+    "slots": [
+      {"slot_id": "wide", "width": 8},
+      {"slot_id": "B", "width": 4},
+      {"slot_id": "A", "width": 4}
+    ]
+  },
+  "works": [
+    {"cabinet_id": "gallery", "request_id": "saturday-print", "work_id": "linocut", "width": 4},
+    {"cabinet_id": "gallery", "request_id": "saturday-panel", "work_id": "collage", "width": 6}
+  ],
+  "next_work": {"cabinet_id": "gallery", "request_id": "sunday-study", "work_id": "colour-study", "width": 4}
+}
